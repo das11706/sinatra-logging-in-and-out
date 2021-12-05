@@ -10,10 +10,12 @@ class ApplicationController < Sinatra::Base
     erb :index
   end
 
+  # get "/login" do
+  #   erb :account
+  # end
+
   post "/login" do
-    # @user = User.new(username: params["username"], password: params["password"], balance: params["balance"])
-    # @user.save
-    user = User.find_by(username: params[:username], password: params[:password])
+    user = User.find_by(username: params[:username])
     if user
       session[:user_id] = user.id
       redirect "/account"
@@ -30,9 +32,9 @@ class ApplicationController < Sinatra::Base
     end
   end
 
-  get "/error" do
-    erb :error
-  end
+  # get "/error" do
+  #   erb :error
+  # end
 
   get "/logout" do
     session.clear
@@ -41,19 +43,3 @@ class ApplicationController < Sinatra::Base
 end
 
 
-# get '/account' do
-#   if Helpers.is_logged_in?(session)
-#     erb :account
-#   else
-#     erb :error
-#   end
-# end
-
-# get "/account" do
-#   if @user = Helpers.is_logged_in?(session)
-#     @user = Helpers.current_user(session)
-#     erb :account
-#   else
-#     erb :error
-#   end
-# end
